@@ -1,3 +1,19 @@
+<?php
+
+$errors = [];
+$number = $_POST['number'];
+
+if (isset($_POST) && (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['mail']) && isset($_POST['number'])
+        && isset($_POST['message']) && isset($_POST['submit'])) && $errors[]= '') {
+
+}
+
+if (empty($errors)) {
+    header("location: thanks.php");
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,11 +26,12 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Hello, world!</title>
+    <title>Formulaire de contact</title>
 </head>
 <body class="container">
 
-<form class="" action="thanks.php" method="post">
+<form action="thanks.php" method="post">
+    <h2><strong>Formulaire de contact</strong></h2>
     <div class="form-group">
         <label for="prenom">Prénom :</label>
         <input type="text" id="nom" name="firstname">
@@ -29,7 +46,14 @@
     </div>
     <div class="form-group">
         <label for="number">Téléphone :</label>
-        <input pattern="^0[1-9]([-. ]?[0-9]{2}){4}$" type="tel" id="number" name="number" required>
+        <input placeholder="+33 (0)1-23-45-67-89" type="tel" id="number" name="number">
+        <p><?php if (preg_match('#(0|\+33)[1-9]([0-9]{2}){4}#', $_POST['number'])) {
+                $sep = '[-. ]';
+                $replace = '#'.$sep.'#';
+                $_POST['number'] = preg_replace($sep,'' , $_POST['number']);
+            } else {
+                echo 'le numéro de téléphone n\'est pas correcte';
+            } ?></p>
     </div>
     <div class="form-group">
         <label for="message">Message :</label>
@@ -39,13 +63,13 @@
         <label for="sujet">Sujet :</label>
         <select id="sujet" name="sujet">
             <option value="">Choisissez votre sujets</option>
-            <option value="probleme_technique">probleme technique</option>
+            <option value="probleme technique">probleme technique</option>
             <option value="information">information</option>
             <option value="conseil">conseil</option>
         </select>
     </div>
     <div class="button">
-        <button type="submit" class="btn btn-primary">Envoyer votre message</button>
+        <button type="submit" class="btn btn-primary" name="submit">Envoyer votre message</button>
     </div>
 </form>
 

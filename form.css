@@ -1,6 +1,6 @@
 form {
     /* Uniquement centrer le formulaire sur la page */
-    margin: 0 auto;
+    margin: 10% auto ;
     width: 400px;
     /* Encadré pour voir les limites du formulaire */
     padding: 1em;
