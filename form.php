@@ -1,15 +1,37 @@
 <?php
-
+session_start();
+$_SESSION = $_POST;
 $errors = [];
-$number = $_POST['number'];
 
-if (isset($_POST) && (isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['mail']) && isset($_POST['number'])
-        && isset($_POST['message']) && isset($_POST['submit'])) && $errors[]= '') {
-
-}
-
-if (empty($errors)) {
-    header("location: thanks.php");
+if(array_key_exists('submit', $_POST))
+{
+    if(empty($_POST['firstname'])) {
+        $errors['firstname'] = "Le nom ne peut être vide";
+    }
+    if(!preg_match('#\w#', $_POST['firstname'])){
+        $errors['firstname'] = "Le nom doit contenir que des lettres";
+    }
+    if(empty($_POST['lastname'])) {
+        $errors['lastname'] = "Le nom ne peut être vide";
+    }
+    if(!preg_match('#\w#', $_POST['lastname'])){
+        $errors['lastname'] = "Le nom doit contenir que des lettres";
+    }
+    if(empty($_POST['email']) OR !filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+        $errors['email'] = "L'email entré n'est pas valide";
+    }
+    if (!preg_match('#(0|\+33)[1-9]([0-9]{2}){4}#', $_POST['number'])) {
+        $errors['number'] = "Le numéro entré n'est pas valide";
+    }
+    if(empty($_POST['sujet'])){
+        $errors['sujet'] = 'Veuillez selectionner un sujet';
+    }
+    if(empty($_POST['message'])){
+        $errors['message'] = 'Le message ne peut être vide';
+    }
+    if(empty($errors)){
+        header("location: thanks.php");
+    }
 }
 
 ?>
@@ -30,35 +52,42 @@ if (empty($errors)) {
 </head>
 <body class="container">
 
-<form action="thanks.php" method="post">
+<form action="" method="post">
+    <?php if(!empty($errors)): ?>
+        <legend class="alert alert-danger">Des erreurs ont été trouvées</legend>
+    <?php endif; ?>
     <h2><strong>Formulaire de contact</strong></h2>
     <div class="form-group">
         <label for="prenom">Prénom :</label>
-        <input type="text" id="nom" name="firstname">
+        <input type="text" id="prenom" name="firstname">
+        <p><?php if (isset($errors['firstname']))  echo $errors['firstname'] ?></p>
     </div>
+
     <div class="form-group">
         <label for="nom">Nom :</label>
         <input type="text" id="nom" name="lastname">
+        <p><?php if (isset($errors['lastname']))  echo $errors['lastname'] ?></p>
     </div>
+
     <div class="form-group">
         <label for="courriel">Courriel :</label>
         <input type="email" id="courriel" name="email">
+        <p><?php if (isset($errors['email']))  echo $errors['email'] ?></p>
     </div>
+
     <div class="form-group">
         <label for="number">Téléphone :</label>
         <input placeholder="+33 (0)1-23-45-67-89" type="tel" id="number" name="number">
-        <p><?php if (preg_match('#(0|\+33)[1-9]([0-9]{2}){4}#', $_POST['number'])) {
-                $sep = '[-. ]';
-                $replace = '#'.$sep.'#';
-                $_POST['number'] = preg_replace($sep,'' , $_POST['number']);
-            } else {
-                echo 'le numéro de téléphone n\'est pas correcte';
-            } ?></p>
+        <p><?php if (isset($errors['number']))  echo $errors['number'];
+        $_POST['number'] = wordwrap($_POST['number'],2,"-",true );?></p>
     </div>
+
     <div class="form-group">
         <label for="message">Message :</label>
         <textarea id="message" name="message"></textarea>
+        <p><?php if (isset($errors['message']))  echo $errors['message'] ?></p>
     </div>
+
     <div class="form-group">
         <label for="sujet">Sujet :</label>
         <select id="sujet" name="sujet">
@@ -67,7 +96,9 @@ if (empty($errors)) {
             <option value="information">information</option>
             <option value="conseil">conseil</option>
         </select>
+        <p><?php if (isset($errors['sujet'])) echo $errors['sujet'] ?></p>
     </div>
+
     <div class="button">
         <button type="submit" class="btn btn-primary" name="submit">Envoyer votre message</button>
     </div>
@@ -86,8 +117,6 @@ if (empty($errors)) {
         crossorigin="anonymous"></script>
 </body>
 </html>
-
-
 
 
 

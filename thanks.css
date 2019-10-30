@@ -1,0 +1,6 @@
+.message{
+    /* Encadré pour voir les limites du message */
+    padding: 1em;
+    border: 1px solid darkgray;
+    border-radius: 1em;
+}

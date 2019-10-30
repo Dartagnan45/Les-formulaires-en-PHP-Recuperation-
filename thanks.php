@@ -1,8 +1,22 @@
+<?php
+session_start();
+
+$firstname = htmlspecialchars($_SESSION['firstname']);
+$lastname = htmlspecialchars($_SESSION['lastname']);
+$email = htmlspecialchars($_SESSION['email']);
+$number = $_SESSION['number'] = wordwrap($_SESSION['number'],2,"-",true );
+$sujet = htmlspecialchars($_SESSION['sujet']);
+$message = htmlspecialchars($_SESSION['message']);
+
+
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="thanks.css" >
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>formulaire de contact</title>
@@ -11,10 +25,13 @@
 
 <h2>Votre demande de contact est bien envoyée</h2>
 
-<p><?php echo 'Merci ' .  '<strong>'. $_POST['firstname']. '</strong>' .' '.  '<strong>'.$_POST['lastname']. '</strong>' . ' de nous avoir contacté à propos de ' . $_POST['sujet'] . '.' ?></p>
-<p><?php echo 'Un de nos conseiller vous contactera soit à l’adresse ' . '<strong>' . $_POST['email'] . '</strong>' . ' ou par téléphone au ' . '<strong>' . $_POST['number'] . '</strong>' .
+<p><?php echo 'Merci ' . '<strong>' . $firstname . '</strong>' . ' ' . '<strong>' . $lastname . '</strong>' . ' de nous avoir contacté à propos de ' . '<strong>' . $sujet . '</strong>' . '.' ?></p>
+<p><?php echo 'Un de nos conseiller vous contactera soit à l’adresse ' . '<strong>' . $email . '</strong>' . ' ou par téléphone au ' . '<strong>' . $number . '</strong>' .
         ' dans les plus brefs délais pour traiter votre demande : '; ?> </p>
-<p><?php echo $_POST['message']; ?></p>
+<div class="message">
+<h4>Votre message</h4>
+<p><?php echo $message ?></p>
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

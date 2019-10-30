@@ -4,8 +4,8 @@ form {
     width: 400px;
     /* Encadré pour voir les limites du formulaire */
     padding: 1em;
-    border: 1px solid #CCC;
-    border-radius: 1em;
+    border: 1px solid darkgray;
+    border-radius: 2em;
 }
 
 form div + div {
