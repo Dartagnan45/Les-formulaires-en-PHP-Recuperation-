@@ -71,13 +71,13 @@ if(array_key_exists('submit', $_POST))
 
     <div class="form-group">
         <label for="courriel">Courriel :</label>
-        <input type="email" id="courriel" name="email">
+        <input type="email" id="courriel" name="email" required>
         <p><?php if (isset($errors['email']))  echo $errors['email'] ?></p>
     </div>
 
     <div class="form-group">
         <label for="number">Téléphone :</label>
-        <input placeholder="+33 (0)1-23-45-67-89" type="tel" id="number" name="number">
+        <input placeholder="+33 (0)1-23-45-67-89" type="tel" id="number" name="number" required>
         <p><?php if (isset($errors['number']))  echo $errors['number'];
         $_POST['number'] = wordwrap($_POST['number'],2,"-",true );?></p>
     </div>
