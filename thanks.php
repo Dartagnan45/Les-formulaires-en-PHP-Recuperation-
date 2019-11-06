@@ -4,8 +4,8 @@ session_start();
 $firstname = htmlspecialchars($_SESSION['firstname']);
 $lastname = htmlspecialchars($_SESSION['lastname']);
 $email = htmlspecialchars($_SESSION['email']);
-$number = $_SESSION['number'] = wordwrap($_SESSION['number'],2,"-",true );
-$sujet = htmlspecialchars($_SESSION['sujet']);
+$number = $_SESSION['number'] = wordwrap($_SESSION['number'], 2, "-", true);
+$subject = htmlspecialchars($_SESSION['subject']);
 $message = htmlspecialchars($_SESSION['message']);
 
 
@@ -16,7 +16,7 @@ $message = htmlspecialchars($_SESSION['message']);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="thanks.css" >
+    <link rel="stylesheet" href="thanks.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>formulaire de contact</title>
@@ -25,12 +25,12 @@ $message = htmlspecialchars($_SESSION['message']);
 
 <h2>Votre demande de contact est bien envoyée</h2>
 
-<p><?php echo 'Merci ' . '<strong>' . $firstname . '</strong>' . ' ' . '<strong>' . $lastname . '</strong>' . ' de nous avoir contacté à propos de ' . '<strong>' . $sujet . '</strong>' . '.' ?></p>
+<p><?php echo 'Merci ' . '<strong>' . $firstname . '</strong>' . ' ' . '<strong>' . $lastname . '</strong>' . ' de nous avoir contacté à propos de ' . '<strong>' . $subject . '</strong>' . '.' ?></p>
 <p><?php echo 'Un de nos conseiller vous contactera soit à l’adresse ' . '<strong>' . $email . '</strong>' . ' ou par téléphone au ' . '<strong>' . $number . '</strong>' .
         ' dans les plus brefs délais pour traiter votre demande : '; ?> </p>
 <div class="message">
-<h4>Votre message</h4>
-<p><?php echo $message ?></p>
+    <h4>Votre message</h4>
+    <p><?php echo $message ?></p>
 </div>
 
 
