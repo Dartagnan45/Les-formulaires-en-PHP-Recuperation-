@@ -51,14 +51,15 @@ if (array_key_exists('submit', $_POST)) {
 </head>
 <body>
 
-<div class="progress">
-    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 0" aria-valuenow="0"
-         aria-valuemin="0" aria-valuemax="100">
+<div id="progress-inputs" class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0"
+         aria-valuemin="0" aria-valuemax="100" style="width:0;">
+        <span id="sr-only">0%</span>
     </div>
 </div>
 
 <div class="container">
-    <form id="app" action="" method="post">
+    <form id="input-progress" action="" method="post">
         <?php if (!empty($errors)): ?>
             <legend class="alert alert-danger">Des erreurs ont été trouvées</legend>
         <?php endif; ?>
@@ -72,7 +73,7 @@ if (array_key_exists('submit', $_POST)) {
 
         <div class="form-group">
             <label for="lastname">Nom :</label>
-            <input type="text" id="lastname" name="lastname" class="moo">
+            <input type="text" id="lastname" name="lastname" class="moo" required>
             <p><?php if (isset($errors['lastname'])) echo $errors['lastname'] ?></p>
         </div>
 
@@ -131,21 +132,34 @@ if (array_key_exists('submit', $_POST)) {
     }, 100000);
 
 
-    $(function () {
-        $('.moo').keyup(function () {
-            // var valeurMax = 100;
-            var total = 0;
-            var value = 20;
-            for (var i = 100; i <= value; i++) {
-                if ($('.moo').val() != null) {
-                    total += value;
+    $(document).ready(function () {
+        function updateInputProgress() {
+            var filledFields = 0;
+            $("#input-progress").find("input, select, textarea").each(function () {
+                if ($(this).val() !== "") {
+                    filledFields++;
                 }
-                return total;
-            }
-            $('.progress-bar').css('width', valeur + '%').attr('aria-valuenow', valeur);
-        });
-    });
+            });
+            var percent = Math.ceil(100 * filledFields / totalFields);
+            $("#progress-inputs .progress-bar").attr("aria-valuenow", percent).width(percent + "%");
+            $("#sr-only").html(percent + "% Complete");
 
+            return percent;
+        }
+
+        //Input Progress
+        var totalFields = $("#input-progress").find("input, select, textarea").length;
+        $("#input-progress").click(function () {
+            updateInputProgress();
+        });
+        $("#input-progress .btn-primary").click(function () {
+            var percent = updateInputProgress();
+            if (percent === 100) {
+                alert("Finished inputs successfully!");
+            }
+        })
+
+    });
 
 </script>
 </body>
