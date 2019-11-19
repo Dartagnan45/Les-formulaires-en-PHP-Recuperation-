@@ -23,11 +23,14 @@ $message = htmlspecialchars($_SESSION['message']);
 </head>
 <body class="container">
 
-<h2>Votre demande de contact est bien envoyée</h2>
+<h2 class="title alert-success">Votre demande de contact est bien envoyée</h2>
 
-<p><?php echo 'Merci ' . '<strong>' . $firstname . '</strong>' . ' ' . '<strong>' . $lastname . '</strong>' . ' de nous avoir contacté à propos de ' . '<strong>' . $subject . '</strong>' . '.' ?></p>
-<p><?php echo 'Un de nos conseiller vous contactera soit à l’adresse ' . '<strong>' . $email . '</strong>' . ' ou par téléphone au ' . '<strong>' . $number . '</strong>' .
-        ' dans les plus brefs délais pour traiter votre demande : '; ?> </p>
+<div>
+    <p><?php echo 'Merci ' . '<strong>' . $firstname . '</strong>' . ' ' . '<strong>' . $lastname . '</strong>' . ' de nous avoir contacté à propos de ' . '<strong>' . $subject . '</strong>' . '.' ?></p>
+    <p><?php echo 'Un de nos conseiller vous contactera soit à l’adresse ' . '<strong>' . $email . '</strong>' . ' ou par téléphone au ' . '<strong>' . $number . '</strong>' .
+            ' dans les plus brefs délais pour traiter votre demande : '; ?> </p>
+</div>
+
 <div class="message">
     <h4>Votre message</h4>
     <p><?php echo $message ?></p>
