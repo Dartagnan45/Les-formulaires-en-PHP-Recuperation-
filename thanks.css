@@ -1,5 +1,10 @@
+.title {
+    margin-top: 1em;
+    border-radius: 1%;
+}
+
 .message{
-    /* Encadré pour voir les limites du message */
+    margin-top: 5%;
     padding: 1em;
     border: 1px solid darkgray;
     border-radius: 1em;
